@@ -2,7 +2,7 @@ import { Prisma, PrismaClient } from "@prisma/client";
 import fs from "fs/promises";
 
 const prisma = new PrismaClient();
-const SEEDS_FOLDER_NAME = ""; // "seeds" folder inside temp folder: ex: "temp/SEEDS_FOLDER_NAME"
+const SEEDS_FOLDER_NAME = "seeds"; // "seeds" folder inside temp folder: ex: "temp/SEEDS_FOLDER_NAME"
 
 async function main() {
   const isDroped = true;
