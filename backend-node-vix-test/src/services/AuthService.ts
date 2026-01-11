@@ -14,7 +14,7 @@ export class AuthService {
 
   async login(data: TLogin) {
     const valideData = loginSchema.parse(data);
-    const user = await this.userModel.getByEmail(valideData.email);
+    const user = await this.userModel.getUserByEmail(valideData.email);
 
     if (!user || user.deletedAt || !user.isActive) {
       throw new AppError(

@@ -3,19 +3,19 @@ import { TUserCreated } from "../types/validations/User/createUser";
 import { TUserUpdated } from "../types/validations/User/updateUser";
 
 export class UserModel {
-  async getById(idUser: string) {
+  async getUserById(idUser: string) {
     return await prisma.user.findUnique({
       where: { idUser },
     });
   }
 
-  async getByEmail(email: string) {
+  async getUserByEmail(email: string) {
     return await prisma.user.findFirst({
       where: { email },
     });
   }
 
-  async createNewUser(data: TUserCreated) {
+  async createUser(data: TUserCreated) {
     return await prisma.user.create({
       data: { ...data },
     });

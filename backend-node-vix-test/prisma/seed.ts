@@ -40,7 +40,6 @@ async function main() {
       // @ts-expect-error ts(2349)
       await prisma[table].createMany({ data });
     } catch (error) {
-      console.log(error);
       if (
         error instanceof Error ||
         error instanceof Prisma.PrismaClientKnownRequestError ||
