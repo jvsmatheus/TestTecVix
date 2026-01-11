@@ -19,7 +19,7 @@ const userController = makeUserController();
 userRoutes.get(
   `${BASE_PATH}/:idUser`, // authUser,
   async (req, res) => {
-    await userController.getById(req, res);
+    await userController.getUserById(req, res);
   },
 );
 

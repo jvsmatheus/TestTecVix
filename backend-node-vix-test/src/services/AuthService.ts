@@ -36,6 +36,7 @@ export class AuthService {
       idUser: user.idUser,
       email: user.email,
       username: user.username,
+      role: user.role,
       idBrandMaster: user.idBrandMaster || undefined,
     };
 
@@ -45,12 +46,7 @@ export class AuthService {
 
     return {
       token,
-      user: {
-        idUser: user.idUser,
-        email: user.email,
-        username: user.username,
-        idBrandMaster: user.idBrandMaster || undefined,
-      },
+      user: payload,
     };
   }
 }
