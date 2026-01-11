@@ -28,6 +28,13 @@ export class UserModel {
     });
   }
 
+  async updateUserLastLoginDate(idUser: string) {
+    return await prisma.user.update({
+      where: { idUser },
+      data: { lastLoginDate: new Date(), updatedAt: new Date() },
+    });
+  }
+
   async deleteUser(idUser: string) {
     return await prisma.user.update({
       where: { idUser },

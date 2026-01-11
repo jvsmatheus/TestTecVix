@@ -41,6 +41,8 @@ export class AuthService {
 
     const token = genToken(payload);
 
+    await this.userModel.updateUserLastLoginDate(user.idUser);
+
     return {
       token,
       user: {
