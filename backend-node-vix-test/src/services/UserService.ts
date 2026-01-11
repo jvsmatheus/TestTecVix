@@ -4,6 +4,7 @@ import { AppError } from "../errors/AppError";
 import { UserModel } from "../models/UserModel";
 import { userCreatedSchema } from "../types/validations/User/createUser";
 import { userUpdatedSchema } from "../types/validations/User/updateUser";
+import { hashPassword } from "../utils/hash";
 
 export class UserService {
   constructor() {}
@@ -16,6 +17,8 @@ export class UserService {
 
   async createNewUser(data: unknown) {
     const validateData = userCreatedSchema.parse(data);
+
+    validateData.password = await hashPassword(validateData.password);
 
     const createdUser = await this.userModel.createNewUser({
       ...validateData,
