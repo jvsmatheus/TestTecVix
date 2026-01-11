@@ -7,14 +7,14 @@ export class UserController {
   constructor() {}
   private userService = new UserService();
 
-  async getById(req: CustomRequest<unknown>, res: Response) {
+  async getUserById(req: CustomRequest<unknown>, res: Response) {
     const { idUser } = req.params;
-    const result = await this.userService.getById(idUser);
+    const result = await this.userService.getUserById(idUser);
     return res.status(STATUS_CODE.OK).json(result);
   }
 
   async createUser(req: CustomRequest<unknown>, res: Response) {
-    const result = await this.userService.createNewUser(req.body);
+    const result = await this.userService.createUser(req.body);
     return res.status(STATUS_CODE.CREATED).json(result);
   }
 

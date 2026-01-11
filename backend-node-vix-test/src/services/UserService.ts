@@ -17,20 +17,20 @@ export class UserService {
 
   private userModel = new UserModel();
 
-  async getById(idUser: string) {
-    return this.userModel.getById(idUser);
+  async getUserById(idUser: string) {
+    return this.userModel.getUserById(idUser);
   }
 
-  async getByEmail(email: string) {
-    return this.userModel.getByEmail(email);
+  async getUserByEmail(email: string) {
+    return this.userModel.getUserByEmail(email);
   }
 
-  async createNewUser(data: TUserCreated) {
+  async createUser(data: TUserCreated) {
     const validateData = userCreatedSchema.parse(data);
 
     validateData.password = await hashPassword(validateData.password);
 
-    const createdUser = await this.userModel.createNewUser({
+    const createdUser = await this.userModel.createUser({
       ...validateData,
     });
 
@@ -39,7 +39,7 @@ export class UserService {
 
   async updateUser(idUser: string, data: TUserUpdated) {
     const validateDataSchema = userUpdatedSchema.parse(data);
-    const oldUser = await this.getById(idUser);
+    const oldUser = await this.getUserById(idUser);
 
     if (!oldUser) {
       throw new AppError(ERROR_MESSAGE.NOT_FOUND, STATUS_CODE.NOT_FOUND);
@@ -53,7 +53,7 @@ export class UserService {
   }
 
   async deleteUser(idUser: string) {
-    const oldUser = await this.getById(idUser);
+    const oldUser = await this.getUserById(idUser);
     if (!oldUser) {
       throw new AppError(ERROR_MESSAGE.NOT_FOUND, STATUS_CODE.NOT_FOUND);
     }
