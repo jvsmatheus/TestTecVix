@@ -2,7 +2,7 @@ import { Prisma, PrismaClient } from "@prisma/client";
 import fs from "fs/promises";
 
 const prisma = new PrismaClient();
-const SEEDS_FOLDER_NAME = ""; // "seeds" folder inside temp folder: ex: "temp/SEEDS_FOLDER_NAME"
+const SEEDS_FOLDER_NAME = "seeds"; // "seeds" folder inside temp folder: ex: "temp/SEEDS_FOLDER_NAME"
 
 async function main() {
   const isDroped = true;
@@ -40,6 +40,7 @@ async function main() {
       // @ts-expect-error ts(2349)
       await prisma[table].createMany({ data });
     } catch (error) {
+      console.log(error);
       if (
         error instanceof Error ||
         error instanceof Prisma.PrismaClientKnownRequestError ||

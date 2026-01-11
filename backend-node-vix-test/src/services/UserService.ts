@@ -2,8 +2,14 @@ import { ERROR_MESSAGE } from "../constants/erroMessages";
 import { STATUS_CODE } from "../constants/statusCode";
 import { AppError } from "../errors/AppError";
 import { UserModel } from "../models/UserModel";
-import { userCreatedSchema } from "../types/validations/User/createUser";
-import { userUpdatedSchema } from "../types/validations/User/updateUser";
+import {
+  TUserCreated,
+  userCreatedSchema,
+} from "../types/validations/User/createUser";
+import {
+  TUserUpdated,
+  userUpdatedSchema,
+} from "../types/validations/User/updateUser";
 import { hashPassword } from "../utils/hash";
 
 export class UserService {
@@ -15,7 +21,11 @@ export class UserService {
     return this.userModel.getById(idUser);
   }
 
-  async createNewUser(data: unknown) {
+  async getByEmail(email: string) {
+    return this.userModel.getByEmail(email);
+  }
+
+  async createNewUser(data: TUserCreated) {
     const validateData = userCreatedSchema.parse(data);
 
     validateData.password = await hashPassword(validateData.password);
@@ -27,7 +37,7 @@ export class UserService {
     return createdUser;
   }
 
-  async updateUser(idUser: string, data: unknown) {
+  async updateUser(idUser: string, data: TUserUpdated) {
     const validateDataSchema = userUpdatedSchema.parse(data);
     const oldUser = await this.getById(idUser);
 

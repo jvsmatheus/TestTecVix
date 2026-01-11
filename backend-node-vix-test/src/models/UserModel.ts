@@ -9,6 +9,12 @@ export class UserModel {
     });
   }
 
+  async getByEmail(email: string) {
+    return await prisma.user.findFirst({
+      where: { email },
+    });
+  }
+
   async createNewUser(data: TUserCreated) {
     return await prisma.user.create({
       data: { ...data },
