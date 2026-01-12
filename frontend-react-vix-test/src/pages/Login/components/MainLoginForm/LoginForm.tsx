@@ -1,15 +1,15 @@
 import { FormControl, InputLabel, Stack } from "@mui/material";
-import { useZTheme } from "../../../../stores/useZTheme";
+import { useTranslation } from "react-i18next";
+import { SimpleInput } from "../../../../components/Inputs/SimpleInput";
 import { TextRob32Font1L } from "../../../../components/Text1L";
 import { TextRob18Font2M } from "../../../../components/Text2M";
-import { SimpleInput } from "../../../../components/Inputs/SimpleInput";
-import { useTranslation } from "react-i18next";
+import { useZTheme } from "../../../../stores/useZTheme";
 
 interface IProps {
   username: string;
   setUsername: (username: string) => void;
   email: string;
-  setEmail: (username: string) => void;
+  setEmail: (email: string) => void;
   password: string;
   setPassword: (password: string) => void;
   onEnterPassword?: () => void;
@@ -56,7 +56,6 @@ export const LoginForm = ({
         </InputLabel>
         <SimpleInput
           id="bootstrap-input-email"
-          // sx={{ height: "48px" }}
           type="text"
           inputSx={{ height: "48px", borderRadius: "12px" }}
           value={email}

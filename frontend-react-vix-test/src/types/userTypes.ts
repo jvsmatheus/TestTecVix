@@ -27,3 +27,15 @@ export interface IUserBasicInfo {
   idUser?: number | null;
   idBrandMaster?: number | null;
 }
+
+export interface IUserAuth {
+  tokem: string;
+  user: {
+    idUser: number;
+    email: string;
+    username: string;
+    role: "admin" | "manager" | "member";
+    idBrandMaster: number;
+  }
+
+}
