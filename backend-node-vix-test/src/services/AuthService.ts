@@ -46,7 +46,16 @@ export class AuthService {
 
     return {
       token,
-      user: payload,
+      user: {
+        idUser: user.idUser,
+        profileImgUrl: user.profileImgUrl,
+        email: user.email,
+        username: user.username,
+        role: user.role,
+        idBrandMaster: user.idBrandMaster || undefined,
+        userPhoneNumber: user.userPhoneNumber,
+        isActive: user.isActive,
+      },
     };
   }
 }
