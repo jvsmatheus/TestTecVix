@@ -58,4 +58,20 @@ export class AuthService {
       },
     };
   }
+
+  async refreshToken(idUser: string) {
+    const user = await this.userModel.getUserById(idUser);
+
+    if (!user || user.deletedAt) {
+      throw new AppError(ERROR_MESSAGE.UNAUTHORIZED, STATUS_CODE.UNAUTHORIZED);
+    }
+
+    return genToken({
+      idUser: user.idUser,
+      role: user.role,
+      email: user.email,
+      username: user.username,
+      idBrandMaster: user.idBrandMaster || undefined,
+    });
+  }
 }
