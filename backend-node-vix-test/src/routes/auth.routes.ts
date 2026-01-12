@@ -17,6 +17,10 @@ authRoutes.post(`${BASE_PATH}/login`, async (req, res) => {
   await authController.login(req, res);
 });
 
+authRoutes.post(`${BASE_PATH}/register`, async (req, res) => {
+  await authController.register(req, res);
+});
+
 authRoutes.get(
   `${BASE_PATH}/refresh-token/:idUser`,
   authUser,
