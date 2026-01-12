@@ -65,13 +65,6 @@ export class AuthService {
       );
     }
 
-    if (validData.password !== validData.passwordConfirmation) {
-      throw new AppError(
-        ERROR_MESSAGE.PASSWORDS_DO_NOT_MATCH,
-        STATUS_CODE.BAD_REQUEST,
-      );
-    }
-
     const newUser = await this.userModel.createUser({
       email: validData.email,
       password: validData.password,
