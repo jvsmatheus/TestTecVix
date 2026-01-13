@@ -389,16 +389,16 @@ Exemplo:
 
 ```
 Admin:
-  Email: admin@vituax.com
-  Senha: Admin@123
+  Email: admin_user@email.com
+  Senha: SenhaMuitoForte@123
 
 Manager:
-  Email: manager@vituax.com
-  Senha: Manager@123
+  Email: manager_user@email.com
+  Senha: SenhaMuitoForte@123
 
 Member:
-  Email: member@vituax.com
-  Senha: Member@123
+  Email: member_user@email.com
+  Senha: SenhaMuitoForte@123
 ```
 
 ---
@@ -687,3 +687,18 @@ Se tiver dúvidas sobre o teste, entre em contato com o time da Vituax.
 
 **Esperamos receber o link do seu repositório em breve!** 📬
 
+---
+
+## Alterações e Implementações Realizadas
+
+- Implementação das rotas de login, registro, logout e refresh token, utilizando autenticação baseada em JWT.
+
+   - A autenticação foi separada da entidade de usuário, mantendo a responsabilidade de autenticação desacoplada do domínio de usuários.
+
+- Implementação completa do CRUD de usuários.
+
+- Proteção de rotas por meio de middleware de autenticação, com:
+
+   - Validação do token JWT.
+
+   - Controle de acesso baseado em níveis de permissão (roles).
