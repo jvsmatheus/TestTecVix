@@ -1,10 +1,9 @@
 import { Router } from "express";
 import { authUser } from "../auth/authUser";
+import { isAdmin } from "../auth/isAdmin";
+import { isManagerOrIsAdmin } from "../auth/isManagerOrIsAdmin";
 import { API_VERSION, ROOT_PATH } from "../constants/basePathRoutes";
 import { BrandMasterController } from "../controllers/BrandMasterController";
-// import { isManagerOrIsAdmin } from "../auth/isManagerOrIsAdmin";
-// import { isAdmin } from "../auth/isAdmin";
-// import { authUser } from "../auth/authUser";
 
 const BASE_PATH = API_VERSION.V1 + ROOT_PATH.BRANDMASTER; // /api/v1/brand-master
 
@@ -35,7 +34,7 @@ brandMasterRoutes.get(`${BASE_PATH}`, authUser, async (req, res) => {
 brandMasterRoutes.post(
   `${BASE_PATH}`,
   authUser,
-  // isManagerOrIsAdmin,
+  isManagerOrIsAdmin,
   async (req, res) => {
     await brandMasterController.createNewBrandMaster(req, res);
   },
@@ -44,7 +43,7 @@ brandMasterRoutes.post(
 brandMasterRoutes.put(
   `${BASE_PATH}/:idBrandMaster`,
   authUser,
-  // isManagerOrIsAdmin,
+  isManagerOrIsAdmin,
   async (req, res) => {
     await brandMasterController.updateBrandMaster(req, res);
   },
@@ -52,8 +51,8 @@ brandMasterRoutes.put(
 
 brandMasterRoutes.delete(
   `${BASE_PATH}/:idBrandMaster`,
-  // authUser,
-  // isAdmin,
+  authUser,
+  isAdmin,
   async (req, res) => {
     await brandMasterController.deleteBrandMaster(req, res);
   },

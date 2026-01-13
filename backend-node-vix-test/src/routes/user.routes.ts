@@ -1,10 +1,9 @@
 import { Router } from "express";
 import { authUser } from "../auth/authUser";
+import { isAdmin } from "../auth/isAdmin";
+import { isManagerOrIsAdmin } from "../auth/isManagerOrIsAdmin";
 import { API_VERSION, ROOT_PATH } from "../constants/basePathRoutes";
 import { UserController } from "../controllers/UserController";
-// import { isManagerOrIsAdmin } from "../authUser/isManagerOrIsAdmin";
-// import { isAdmin } from "../authUser/isAdmin";
-// import { authUser } from "../auth/authUser";
 
 const BASE_PATH = API_VERSION.V1 + ROOT_PATH.USER; // /api/v1/user
 
@@ -22,22 +21,16 @@ userRoutes.get(`${BASE_PATH}/:idUser`, authUser, async (req, res) => {
 });
 
 // ========= POSTs =========
-userRoutes.post(
-  BASE_PATH,
-  authUser,
-  // isManagerOrIsAdmin,
-  async (req, res) => {
-    await userController.createUser(req, res);
-  },
-);
+userRoutes.post(BASE_PATH, authUser, isManagerOrIsAdmin, async (req, res) => {
+  await userController.createUser(req, res);
+});
 
 // ======== PUTs =========
 
 userRoutes.put(
   `${BASE_PATH}/:idUser`,
   authUser,
-
-  //isManagerOrIsAdmin,
+  isManagerOrIsAdmin,
   async (req, res) => {
     await userController.updateUser(req, res);
   },
@@ -47,7 +40,7 @@ userRoutes.put(
 userRoutes.delete(
   `${BASE_PATH}/:idUser`,
   authUser,
-  //isAdmin,
+  isAdmin,
   async (req, res) => {
     await userController.deleteUser(req, res);
   },
