@@ -1,25 +1,24 @@
 import { Divider, Stack } from "@mui/material";
-import { LabelInputVM } from "./LabelInputVM";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { TextRob18Font2M } from "../../../components/Text2M";
-import { useZTheme } from "../../../stores/useZTheme";
-import { DropDowText } from "./DropDowText";
-import { TOptionsTyped } from "../../../types/FormType";
-import { SliderLabelNum } from "./SliderLabelNum";
-import { CheckboxLabel } from "./CheckboxLabel";
+import { AbsoluteBackDrop } from "../../../components/AbsoluteBackDrop";
 import { Btn } from "../../../components/Buttons/Btn";
 import { TextRob16Font1S } from "../../../components/Text1S";
-import { useVmResource } from "../../../hooks/useVmResource";
-import { ModalConfirmCreate } from "./ModalConfirmCreate";
-import { genStrongPass } from "../../../utils/genStrongPass";
+import { TextRob18Font2M } from "../../../components/Text2M";
 import { MIN_PASS_SIZE } from "../../../configs/contants";
-import { PasswordValidations } from "./PasswordValidations";
-import { useZVMSugestion } from "../../../stores/useZVMSugestion";
-import { ENetworkType } from "../../../types/VMTypes";
-import { AbsoluteBackDrop } from "../../../components/AbsoluteBackDrop";
-import { BTNISOsSection } from "./BTNISOsSection";
+import { useVmResource } from "../../../hooks/useVmResource";
+import { useZTheme } from "../../../stores/useZTheme";
 import { useZVM } from "../../../stores/useZVM";
+import { useZVMSugestion } from "../../../stores/useZVMSugestion";
+import { TOptionsTyped } from "../../../types/FormType";
+import { ENetworkType } from "../../../types/VMTypes";
+import { genStrongPass } from "../../../utils/genStrongPass";
+import { CheckboxLabel } from "./CheckboxLabel";
+import { DropDowText } from "./DropDowText";
+import { LabelInputVM } from "./LabelInputVM";
+import { ModalConfirmCreate } from "./ModalConfirmCreate";
+import { PasswordValidations } from "./PasswordValidations";
+import { SliderLabelNum } from "./SliderLabelNum";
 
 export const FormVM = () => {
   const { t } = useTranslation(); // createVm
@@ -52,6 +51,7 @@ export const FormVM = () => {
     validPassword,
     storageOptions,
     localizationOptions,
+    osOptions,
     networkTypeOptions,
     isLoadingCreateVM,
   } = useVmResource();
@@ -225,7 +225,12 @@ export const FormVM = () => {
             value={vmLocalization}
             onChange={setVmLocalization}
           />
-          <BTNISOsSection vmNameLabel={vmSO?.label} />
+          <DropDowText
+            label={t("createVm.operationalSystem")}
+            data={osOptions}
+            value={vmSO}
+            onChange={setVmSO}
+          />
         </Stack>
         {/* Sliders */}
         <Stack
