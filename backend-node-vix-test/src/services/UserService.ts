@@ -60,4 +60,8 @@ export class UserService {
     const deletedUser = await this.userModel.deleteUser(idUser);
     return deletedUser;
   }
+
+  async updateUserLastLoginDate(idUser: string) {
+    return await this.userModel.updateUserLastLoginDate(idUser);
+  }
 }

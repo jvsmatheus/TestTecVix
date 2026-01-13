@@ -1,3 +1,6 @@
+import { ERROR_MESSAGE } from "../constants/erroMessages";
+import { STATUS_CODE } from "../constants/statusCode";
+import { AppError } from "../errors/AppError";
 import { IPayload } from "../types/Interfaces/jwt";
 
 import jwt from "jsonwebtoken";
@@ -11,10 +14,16 @@ export const genToken = (payload: IPayload) => {
   });
 };
 
-// export const verifyToken = (token: string) => {
-//   try {
-//     return; // data;
-//   } catch (error) {
-//     throw new AppError(ERROR_MESSAGE.INVALID_TOKEN, STATUS_CODE.UNAUTHORIZED);
-//   }
-// };
+export const verifyToken = (token: string) => {
+  try {
+    const decoded = jwt.verify(token, secret!);
+
+    if (typeof decoded === "string") {
+      throw new AppError(ERROR_MESSAGE.INVALID_TOKEN, STATUS_CODE.UNAUTHORIZED);
+    }
+
+    return decoded as IPayload;
+  } catch (error) {
+    throw new AppError(ERROR_MESSAGE.INVALID_TOKEN, STATUS_CODE.UNAUTHORIZED);
+  }
+};

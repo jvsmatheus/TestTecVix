@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { api } from "../services/api";
-import { toast } from "react-toastify";
-import { useZGlobalVar } from "../stores/useZGlobalVar";
-import { useZUserProfile } from "../stores/useZUserProfile";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { api } from "../services/api";
+import { useZGlobalVar } from "../stores/useZGlobalVar";
 import { useZResetAllStates } from "../stores/useZResetAllStates";
+import { useZUserProfile } from "../stores/useZUserProfile";
 
 interface IUserLoginResponse {
   token: string | null;
@@ -48,7 +48,7 @@ export const useLogin = () => {
     }
 
     const response = await api.post<IUserLoginResponse>({
-      url: "/user/login",
+      url: "/auth/login",
       data: {
         username: username || undefined,
         password,
@@ -78,6 +78,8 @@ export const useLogin = () => {
       userPhoneNumber: response.data.user.userPhoneNumber,
     });
     setLoginTime(new Date());
+
+    navigate("/");
   };
 
   const goLogout = () => {
