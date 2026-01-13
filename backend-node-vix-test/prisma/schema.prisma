@@ -59,6 +59,8 @@ model vM {
   disk          Int
   hasBackup     Boolean?     @default(false)
   idBrandMaster Int?
+  pass          String?
+  location      ETaskLocation?
   status        EVMStatus?
   createdAt     DateTime?    @default(now()) @db.DateTime(0)
   updatedAt     DateTime?    @default(now()) @db.DateTime(0)
@@ -103,4 +105,9 @@ enum ERole {
   admin
   manager
   member
+}
+
+enum ETaskLocation {
+  bre_barueri
+  usa_miami
 }
