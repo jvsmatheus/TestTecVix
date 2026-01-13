@@ -60,6 +60,8 @@ export const useRegister = () => {
       toast.error(response.message);
       return;
     }
+
+    toast.success(t("loginRegister.registerSuccess"));
     return navigate("/login");
   };
 
