@@ -2,21 +2,21 @@ import { user } from "@prisma/client";
 import { ERROR_MESSAGE } from "../constants/erroMessages";
 import { STATUS_CODE } from "../constants/statusCode";
 import { AppError } from "../errors/AppError";
-import { UserModel } from "../models/UserModel";
 import { IPayload } from "../types/Interfaces/jwt";
 import { loginSchema, TLogin } from "../types/validations/auth/login";
 import { registerSchema, Tregister } from "../types/validations/auth/register";
 import { comparePassword } from "../utils/hash";
 import { genToken } from "../utils/jwt";
+import { UserService } from "./UserService";
 
 export class AuthService {
   constructor() {}
 
-  private userModel = new UserModel();
+  private userService = new UserService();
 
   async login(data: TLogin) {
     const valideData = loginSchema.parse(data);
-    const user = await this.userModel.getUserByEmail(valideData.email);
+    const user = await this.userService.getUserByEmail(valideData.email);
 
     if (!user || user.deletedAt || !user.isActive) {
       throw new AppError(
@@ -36,7 +36,7 @@ export class AuthService {
 
     const token = this.generateToken(user);
 
-    await this.userModel.updateUserLastLoginDate(user.idUser);
+    await this.userService.updateUserLastLoginDate(user.idUser);
 
     return {
       token,
@@ -56,7 +56,7 @@ export class AuthService {
   async register(data: Tregister) {
     const validData = registerSchema.parse(data);
 
-    const userExists = await this.userModel.getUserByEmail(validData.email);
+    const userExists = await this.userService.getUserByEmail(validData.email);
 
     if (userExists) {
       throw new AppError(
@@ -65,7 +65,7 @@ export class AuthService {
       );
     }
 
-    const newUser = await this.userModel.createUser({
+    const newUser = await this.userService.createUser({
       email: validData.email,
       password: validData.password,
       username: validData.username,
@@ -94,7 +94,7 @@ export class AuthService {
   }
 
   async refreshToken(idUser: string) {
-    const user = await this.userModel.getUserById(idUser);
+    const user = await this.userService.getUserById(idUser);
 
     if (!user || user.deletedAt) {
       throw new AppError(ERROR_MESSAGE.UNAUTHORIZED, STATUS_CODE.UNAUTHORIZED);
