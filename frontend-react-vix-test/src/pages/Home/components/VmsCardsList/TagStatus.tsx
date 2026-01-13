@@ -1,9 +1,9 @@
 import { Stack } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import { TextRob12Font2Xs } from "../../../../components/Text2Xs";
 import { useZTheme } from "../../../../stores/useZTheme";
-import { useTranslation } from "react-i18next";
-import { checkStatus } from "../../../../utils/checkStatus";
 import { TAction, TTask } from "../../../../types/VMTypes";
+import { checkStatus } from "../../../../utils/checkStatus";
 
 interface IProps {
   status: string | null;
@@ -33,7 +33,7 @@ export const TagStatus = ({ status, action, task }: IProps) => {
     if (checkStatus(status, action, task).isPaused) {
       return {
         color: theme[mode].blueLight,
-        textColor: theme[mode].blue,
+        textColor: theme[mode].btnWhite,
         text: t("home.paused"),
       };
     }
