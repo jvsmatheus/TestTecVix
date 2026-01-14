@@ -1,27 +1,27 @@
 import { Divider, IconButton, Stack } from "@mui/material";
-import { TextRob18Font2M } from "../../../components/Text2M";
-import { useZTheme } from "../../../stores/useZTheme";
-import { useTranslation } from "react-i18next";
-import { LabelInputVM } from "../../VirtualMachine/components/LabelInputVM";
 import { useState } from "react";
-import { useVmResource } from "../../../hooks/useVmResource";
-import { TOptions } from "../../../types/FormType";
-import { DropDowText } from "../../VirtualMachine/components/DropDowText";
-import { SliderLabelNum } from "../../VirtualMachine/components/SliderLabelNum";
-import { CheckboxLabel } from "../../VirtualMachine/components/CheckboxLabel";
+import { useTranslation } from "react-i18next";
 import { Btn } from "../../../components/Buttons/Btn";
 import { TextRob16Font1S } from "../../../components/Text1S";
-import { ModalConfirmCreate } from "../../VirtualMachine/components/ModalConfirmCreate";
+import { TextRob18Font2M } from "../../../components/Text2M";
+import { useVmResource } from "../../../hooks/useVmResource";
 import { CloseXIcon } from "../../../icons/CloseXIcon";
-import { useZMyVMsList } from "../../../stores/useZMyVMsList";
 import { PlayCircleIcon } from "../../../icons/PlayCircleIcon";
+import { useZMyVMsList } from "../../../stores/useZMyVMsList";
+import { useZTheme } from "../../../stores/useZTheme";
+import { TOptions } from "../../../types/FormType";
+import { CheckboxLabel } from "../../VirtualMachine/components/CheckboxLabel";
+import { DropDowText } from "../../VirtualMachine/components/DropDowText";
+import { LabelInputVM } from "../../VirtualMachine/components/LabelInputVM";
+import { ModalConfirmCreate } from "../../VirtualMachine/components/ModalConfirmCreate";
+import { SliderLabelNum } from "../../VirtualMachine/components/SliderLabelNum";
 // import { PauseCircleIcon } from "../../../icons/PauseCircleIcon";
-import { StopCircleIcon } from "../../../icons/StopCircleIcon";
+import { AbsoluteBackDrop } from "../../../components/AbsoluteBackDrop";
 import { TextRob16FontL } from "../../../components/TextL";
 import { useStatusInfo } from "../../../hooks/useStatusInfo";
+import { StopCircleIcon } from "../../../icons/StopCircleIcon";
 import { PasswordValidations } from "../../VirtualMachine/components/PasswordValidations";
 import { ModalDeleteVM } from "./ModalDeleteVM";
-import { AbsoluteBackDrop } from "../../../components/AbsoluteBackDrop";
 import { ModalStartVM } from "./ModalStartVM";
 import { ModalStopVM } from "./ModalStopVM";
 
@@ -44,6 +44,7 @@ export const FormEditVM = ({ onClose }: IProps) => {
 
   const { statusHashMap } = useStatusInfo();
   const { currentVM, setCurrentVM } = useZMyVMsList();
+  const { updateVMStatus } = useVmResource();
   const [vmPassword, setVmPassword] = useState(currentVM.pass);
   const [vmName, setVmName] = useState(currentVM.vmName);
   const [vmSO, setVmSO] = useState<TOptions>({
@@ -129,11 +130,21 @@ export const FormEditVM = ({ onClose }: IProps) => {
 
   const handleStopVM = async () => {
     setStatus("STOPPED");
+    const updatedVm = await updateVMStatus({
+      idVM: vmIDToStop,
+      status: status as "STOPPED" | "RUNNING" | "PAUSED",
+    });
+    setCurrentVM(updatedVm);
     onClose(true);
   };
 
   const handleStartVM = async () => {
     setStatus("RUNNING");
+    const updatedVm = await updateVMStatus({
+      idVM: vmIDToStart,
+      status: status as "STOPPED" | "RUNNING" | "PAUSED",
+    });
+    setCurrentVM(updatedVm);
     onClose(true);
   };
 
