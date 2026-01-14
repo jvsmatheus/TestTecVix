@@ -25,7 +25,7 @@ export class AuthService {
       );
     }
 
-    const isValidPassword = comparePassword(data.password, user.password);
+    const isValidPassword = await comparePassword(data.password, user.password);
 
     if (!isValidPassword) {
       throw new AppError(

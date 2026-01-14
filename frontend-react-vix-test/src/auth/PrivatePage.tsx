@@ -19,7 +19,7 @@ export const PrivatePage = ({
 }: IProps) => {
   const [isChecking, setIsChecking] = useState(true);
   const { resetAllStates } = useZResetAllStates();
-  const { token, idUser } = useZUserProfile();
+  const { token, idUser, role } = useZUserProfile();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,18 +28,18 @@ export const PrivatePage = ({
         resetAllStates();
         navigate("/login");
         break;
-      // case onlyAdmin && role !== "admin":
-      //   navigate(-1);
-      //   break;
-      // case onlyManagerOrAdmin && role !== "admin" && role !== "manager":
-      //   navigate(-1);
-      //   break;
+      case onlyAdmin && role !== "admin":
+        navigate(-1);
+        break;
+      case onlyManagerOrAdmin && role !== "admin" && role !== "manager":
+        navigate(-1);
+        break;
 
       default:
         setIsChecking(false);
         break;
     }
-  }, [idUser, navigate, resetAllStates, token]);
+  }, [idUser, navigate, resetAllStates, token, onlyAdmin, role, onlyManagerOrAdmin]);
 
   if (!idUser) return <FullPage />;
 

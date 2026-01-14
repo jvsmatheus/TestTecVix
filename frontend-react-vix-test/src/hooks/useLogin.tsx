@@ -78,12 +78,14 @@ export const useLogin = () => {
       userPhoneNumber: response.data.user.userPhoneNumber,
     });
     setLoginTime(new Date());
+    localStorage.setItem("auth-token", response.data.token);
 
     navigate("/");
   };
 
   const goLogout = () => {
     resetAllStates();
+    localStorage.removeItem("auth-token");
     return navigate("/login");
   };
 

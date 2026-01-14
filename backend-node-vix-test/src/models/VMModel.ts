@@ -1,8 +1,7 @@
 import { prisma } from "../database/client";
+import { IListAllVM } from "../types/IListAll";
 import { TVMCreate } from "../types/validations/VM/createVM";
 import { TVMUpdate } from "../types/validations/VM/updateVM";
-import { IListAllVM } from "../types/IListAll";
-import moment from "moment";
 
 export class VMModel {
   async getById(idVM: number) {
@@ -43,7 +42,9 @@ export class VMModel {
       where: {
         deletedAt: null,
         idBrandMaster:
-          !idBrandMaster && isRetriveAllCompanies ? undefined : idBrandMaster,
+          !idBrandMasterParams && isRetriveAllCompanies
+            ? undefined
+            : Number(idBrandMasterParams),
         status,
         vmName: {
           contains: query.search,
