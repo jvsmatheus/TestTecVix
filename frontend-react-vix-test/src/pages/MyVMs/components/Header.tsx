@@ -1,17 +1,18 @@
-import { useTranslation } from "react-i18next";
-import { useZTheme } from "../../../stores/useZTheme";
 import { Stack } from "@mui/material";
-import { SearchInput } from "../../../components/Inputs/SearchInput";
-import { DropDown } from "../../../components/Inputs/DropDown";
-import { FilterIcon } from "../../../icons/FilterIcon";
-import { useZMyVMsList } from "../../../stores/useZMyVMsList";
 import { useEffect } from "react";
-import { CheckboxLabel } from "../../VirtualMachine/components/CheckboxLabel";
-import { formatToIOptionMPS } from "../../../utils/formatOptions";
-import { api } from "../../../services/api";
+import { useTranslation } from "react-i18next";
+import { DropDown } from "../../../components/Inputs/DropDown";
+import { SearchInput } from "../../../components/Inputs/SearchInput";
 import { useAuth } from "../../../hooks/useAuth";
-import { IListAll } from "../../../types/ListAllTypes";
+import { FilterIcon } from "../../../icons/FilterIcon";
 import { TrashIcon } from "../../../icons/TrashIcon";
+import { api } from "../../../services/api";
+import { useZMyVMsList } from "../../../stores/useZMyVMsList";
+import { useZTheme } from "../../../stores/useZTheme";
+import { useZUserProfile } from "../../../stores/useZUserProfile";
+import { IListAll } from "../../../types/ListAllTypes";
+import { formatToIOptionMPS } from "../../../utils/formatOptions";
+import { CheckboxLabel } from "../../VirtualMachine/components/CheckboxLabel";
 
 export const Header = () => {
   const { t } = useTranslation();
@@ -29,6 +30,7 @@ export const Header = () => {
   } = useZMyVMsList();
 
   const { getAuth } = useAuth();
+  const { setUser } = useZUserProfile();
 
   const fetchMSPs = async () => {
     const auth = await getAuth();
@@ -193,9 +195,11 @@ export const Header = () => {
                 idBrandMaster: val?.id,
                 brandName: val?.label,
               });
+              setUser({ idBrand: selectedMSP.idBrandMaster });
               return;
             }
             setSelectedMSP(null);
+            setUser({ idBrand: null});
           }}
           value={
             selectedMSP
