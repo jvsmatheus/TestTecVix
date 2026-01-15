@@ -1,4 +1,3 @@
-import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { Box, IconButton, Stack } from "@mui/material";
 import moment from "moment";
@@ -304,23 +303,14 @@ export const MspTable = () => {
                 }}
               >
                 <IconButton
-                  onClick={() =>
-                    isEditing.includes(msp.idBrandMaster)
+                  onClick={() => {
+                    console.log(isEditing);
+                    return isEditing.includes(msp.idBrandMaster)
                       ? saveEdit()
                       : handleEdit(msp.idBrandMaster)
-                  }
+                  }}
                 >
-                  {isEditing.includes(msp.idBrandMaster) ? (
-                    <CheckCircleOutlineRoundedIcon
-                      sx={{
-                        color: theme[mode].blueMedium,
-                        width: "24px",
-                        height: "24px",
-                      }}
-                    />
-                  ) : (
-                    <PencilCicleIcon fill={theme[mode].blueMedium} />
-                  )}
+                  <PencilCicleIcon fill={theme[mode].blueMedium} />
                 </IconButton>
                 {role === "admin" && (
                   <IconButton

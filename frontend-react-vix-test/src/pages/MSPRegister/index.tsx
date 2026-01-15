@@ -13,7 +13,7 @@ import { useZTheme } from "../../stores/useZTheme";
 import { ModalDeleteMsp } from "./ModalDeleteMsp";
 import { ModalDeleteVMsFromMSP } from "./ModalDeleteVMsFromMSP";
 import { ModalUSerNotCreated } from "./ModalUSerNotCreated";
-import { MspForm } from "./MspForm";
+import { MspForm } from "./MspForms/MspForm";
 import { MspModal } from "./MspModal";
 import { MspTable } from "./MspTable/MspTable";
 import { MspTableFilters } from "./MspTable/MspTableFilter";
