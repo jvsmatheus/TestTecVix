@@ -1,29 +1,32 @@
 import { Box, Modal, Stack } from "@mui/material";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { AbsoluteBackDrop } from "../../components/AbsoluteBackDrop";
+import { SampleStepper } from "../../components/SampleStepper";
 import { ScreenFullPage } from "../../components/ScreenFullPage";
 import { TextRob20Font1MB } from "../../components/Text1MB";
-import { useZTheme } from "../../stores/useZTheme";
-import { SampleStepper } from "../../components/SampleStepper";
-import { useZMspRegisterPage } from "../../stores/useZMspRegisterPage";
-import { useTranslation } from "react-i18next";
 import { TextRob16Font1S } from "../../components/Text1S";
-import { MspTableFilters } from "./MspTable/MspTableFilter";
-import { MspTable } from "./MspTable/MspTable";
-import { MspModal } from "./MspModal";
-import { ModalDeleteMsp } from "./ModalDeleteMsp";
-import { useEffect, useState } from "react";
-import { ModalUSerNotCreated } from "./ModalUSerNotCreated";
-import { ModalDeleteVMsFromMSP } from "./ModalDeleteVMsFromMSP";
 import { useBrandMasterResources } from "../../hooks/useBrandMasterResources";
-import { AbsoluteBackDrop } from "../../components/AbsoluteBackDrop";
 import { useVmResource } from "../../hooks/useVmResource";
+import { useZMspRegisterPage } from "../../stores/useZMspRegisterPage";
+import { useZTheme } from "../../stores/useZTheme";
+import { ModalDeleteMsp } from "./ModalDeleteMsp";
+import { ModalDeleteVMsFromMSP } from "./ModalDeleteVMsFromMSP";
+import { ModalUSerNotCreated } from "./ModalUSerNotCreated";
+import { MspForm } from "./MspForm";
+import { MspModal } from "./MspModal";
+import { MspTable } from "./MspTable/MspTable";
+import { MspTableFilters } from "./MspTable/MspTableFilter";
 
 export const MSPRegisterPage = () => {
   const { theme, mode } = useZTheme();
   const {
     activeStep,
     modalOpen,
+    createEditComponentOpen,
     mspToBeDeleted,
     setModalOpen,
+    setCreateEditComponentOpen,
     setMspToBeDeleted,
     setActiveStep,
     resetAll,
@@ -67,7 +70,8 @@ export const MSPRegisterPage = () => {
   return (
     <ScreenFullPage
       title={
-        <TextRob20Font1MB
+        createEditComponentOpen ? (
+          <TextRob20Font1MB
           sx={{
             color: theme[mode].primary,
             fontSize: "28px",
@@ -77,6 +81,7 @@ export const MSPRegisterPage = () => {
         >
           {t("mspRegister.title")}
         </TextRob20Font1MB>
+        ) : (null)
       }
       sxTitleSubTitle={{
         paddingLeft: "40px",
@@ -88,7 +93,8 @@ export const MSPRegisterPage = () => {
         paddingBottom: "40px",
       }}
       subtitle={
-        <Box
+        createEditComponentOpen ? (
+          <Box
           sx={{
             maxWidth: "646px",
             "@media (max-width: 660px)": { maxWidth: "136px" },
@@ -102,6 +108,7 @@ export const MSPRegisterPage = () => {
             ]}
           />
         </Box>
+        ) : (null)
       }
       //  sx= estilização do componente pai
       // children= elementos do componente
@@ -132,7 +139,8 @@ export const MSPRegisterPage = () => {
               boxSizing: "border-box",
             }}
           >
-            <Stack
+            {createEditComponentOpen ? (<MspForm />) : (
+              <Stack
               sx={{
                 gap: "40px",
               }}
@@ -160,6 +168,7 @@ export const MSPRegisterPage = () => {
               </Box>
               <MspTable />
             </Stack>
+            )}
           </Stack>
         }
       </Stack>

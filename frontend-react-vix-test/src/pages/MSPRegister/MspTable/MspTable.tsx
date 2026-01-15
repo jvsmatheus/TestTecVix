@@ -1,17 +1,17 @@
-import { Fragment, useEffect } from "react";
-import { useZTheme } from "../../../stores/useZTheme";
+import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { Box, IconButton, Stack } from "@mui/material";
+import moment from "moment";
+import { Fragment, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { ImgFromDB } from "../../../components/ImgFromDB";
 import { TextRob14Font1Xs } from "../../../components/Text1Xs";
 import { TextRob12Font2Xs } from "../../../components/Text2Xs";
-import { useTranslation } from "react-i18next";
-import { PencilCicleIcon } from "../../../icons/PencilCicleIcon";
-import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { useZUserProfile } from "../../../stores/useZUserProfile";
-import { useZMspRegisterPage } from "../../../stores/useZMspRegisterPage";
 import { useBrandMasterResources } from "../../../hooks/useBrandMasterResources";
-import moment from "moment";
+import { PencilCicleIcon } from "../../../icons/PencilCicleIcon";
+import { useZMspRegisterPage } from "../../../stores/useZMspRegisterPage";
+import { useZTheme } from "../../../stores/useZTheme";
+import { useZUserProfile } from "../../../stores/useZUserProfile";
 
 export const MspTable = () => {
   const { theme, mode } = useZTheme();
@@ -49,6 +49,7 @@ export const MspTable = () => {
     setMinConsumption,
     setRetailPercentageDefault,
     setHasSelfRegister,
+    setCreateEditComponentOpen,
   } = useZMspRegisterPage();
 
   const { listAllBrands } = useBrandMasterResources();
@@ -65,8 +66,9 @@ export const MspTable = () => {
   }, []);
 
   const startEditing = (index: number) => {
-    setShowAddressFields(true);
+    // setShowAddressFields(true);
     setIsEditing([index]);
+    setCreateEditComponentOpen(true);
   };
 
   const saveEdit = () => {
