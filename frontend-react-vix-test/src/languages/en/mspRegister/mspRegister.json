@@ -69,5 +69,10 @@
   "doYouWantToDeleteThisVMs": "Do you really want to delete these VMs?",
   "deletedVMs": "VMs deleted successfully!",
   "continue": "Continue",
-  "username": "Username"
+  "username": "Username",
+  "alterBrandLog": "Alter logo",
+  "removeBrandLogo": "Remove logo",
+  "imageDefault": "Default: 165x50px",
+  "imageSize": "Size: 50mb",
+  "imageFormats": "Formats: .svg .png .jpg .gif .webp"
 }

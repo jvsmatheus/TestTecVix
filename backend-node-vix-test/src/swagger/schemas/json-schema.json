@@ -188,6 +188,24 @@
             "null"
           ]
         },
+        "minConsumption": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "discountRate": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "retailPercentageDefault": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
         "vM": {
           "type": "array",
           "items": {

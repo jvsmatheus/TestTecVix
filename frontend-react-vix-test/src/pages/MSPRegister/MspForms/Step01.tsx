@@ -36,7 +36,6 @@ export const Step01 = () => {
     isPoc,
     setIsPoc,
     setActiveStep,
-    activeStep,
     setIsEditing,
     cep,
     setCep,
@@ -387,7 +386,6 @@ export const Step01 = () => {
             value={String(minConsumption)}
             label={t("mspRegister.minConsumption")}
             placeholder={"0"}
-            icon={<PencilCicleIcon fill={theme[mode].blueDark} />}
             sxContainer={{
               maxWidth: INPUT_WIDTH,
             }}
@@ -405,7 +403,6 @@ export const Step01 = () => {
             value={String(discountRate)}
             label={t("mspRegister.discountPercentage")}
             placeholder={"0"}
-            icon={<PencilCicleIcon fill={theme[mode].blueDark} />}
             sxSidelabel={{
               color: theme[mode].gray,
               paddingLeft: "10px",

@@ -1,13 +1,13 @@
 import { brandMaster, user } from "@prisma/client";
+import { ERROR_MESSAGE } from "../constants/erroMessages";
+import { STATUS_CODE } from "../constants/statusCode";
+import { AppError } from "../errors/AppError";
 import { BrandMasterModel } from "../models/BrandMasterModel";
-import { querySchema } from "../types/validations/Queries/queryListAll";
 import {
   brandMasterSchema,
   TBrandMaster,
 } from "../types/validations/BrandMaster/createBrandMaster";
-import { AppError } from "../errors/AppError";
-import { ERROR_MESSAGE } from "../constants/erroMessages";
-import { STATUS_CODE } from "../constants/statusCode";
+import { querySchema } from "../types/validations/Queries/queryListAll";
 
 export class BrandMasterService {
   constructor() {}

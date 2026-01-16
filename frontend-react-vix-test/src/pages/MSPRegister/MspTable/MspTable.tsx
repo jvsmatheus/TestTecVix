@@ -8,6 +8,7 @@ import { TextRob14Font1Xs } from "../../../components/Text1Xs";
 import { TextRob12Font2Xs } from "../../../components/Text2Xs";
 import { useBrandMasterResources } from "../../../hooks/useBrandMasterResources";
 import { PencilCicleIcon } from "../../../icons/PencilCicleIcon";
+import { useZBrandInfo } from "../../../stores/useZBrandStore";
 import { useZMspRegisterPage } from "../../../stores/useZMspRegisterPage";
 import { useZTheme } from "../../../stores/useZTheme";
 import { useZUserProfile } from "../../../stores/useZUserProfile";
@@ -53,7 +54,8 @@ export const MspTable = () => {
 
   const { listAllBrands } = useBrandMasterResources();
 
-  const { role } = useZUserProfile();
+  const { role, setUser } = useZUserProfile();
+  const { setBrandInfo } = useZBrandInfo();
 
   useEffect(() => {
     const fetchMsps = async () => {
@@ -65,8 +67,8 @@ export const MspTable = () => {
   }, []);
 
   const startEditing = (index: number) => {
-    // setShowAddressFields(true);
     setIsEditing([index]);
+    setUser({idBrand: index});
     setCreateEditComponentOpen(true);
   };
 
@@ -79,6 +81,7 @@ export const MspTable = () => {
   const handleEdit = (index: number) => {
     setEnterOnEditing(true);
     startEditing(index);
+    setBrandInfo({idBrand: index})
     setActiveStep(0);
     const msp = mspList.find((c) => c.idBrandMaster === index);
     setCompanyName(msp?.brandName || "");
@@ -304,7 +307,6 @@ export const MspTable = () => {
               >
                 <IconButton
                   onClick={() => {
-                    console.log(isEditing);
                     return isEditing.includes(msp.idBrandMaster)
                       ? saveEdit()
                       : handleEdit(msp.idBrandMaster)

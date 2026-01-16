@@ -69,5 +69,10 @@
   "doYouWantToDeleteThisVMs": "Desea realmente eliminar estas VMS?",
   "deletedVMs": "VMS eliminadas con éxito!",
   "continue": "Continuar",
-  "username": "Nombre de usuario"
+  "username": "Nombre de usuario",
+  "alterBrandLog": "Cambiar logotipo",
+  "removeBrandLogo": "Quitar logotipo",
+  "imageDefault": "Estándar: 165x50px",
+  "imageSize": "Tamaño: 50mb",
+  "imageFormats": "Formatos: .svg .png .jpg .gif .webp"
 }

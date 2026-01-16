@@ -1,11 +1,11 @@
-import { useTranslation } from "react-i18next";
-import { useZTheme } from "../../stores/useZTheme";
-import { useUploadFile } from "../../hooks/useUploadFile";
-import { useDropzone } from "react-dropzone";
 import { Box, Stack, SxProps, Tooltip } from "@mui/material";
-import { TextRob16FontL } from "../TextL";
+import { useDropzone } from "react-dropzone";
+import { useTranslation } from "react-i18next";
+import { useUploadFile } from "../../hooks/useUploadFile";
 import { TooltipIcon } from "../../icons/TooltipIcon";
 import { UploadIcon } from "../../icons/UploadIcon";
+import { useZTheme } from "../../stores/useZTheme";
+import { TextRob16FontL } from "../TextL";
 
 interface IProps {
   onUploaded: ({
@@ -88,7 +88,7 @@ export const InputUploadLabelTooltip = ({
         {...getRootProps()}
         sx={{
           width: "100%",
-          height: "70px",
+          height: "100px",
           border: `1px dashed ${theme[mode].grayLight}`,
           display: "flex",
           flexDirection: "row",

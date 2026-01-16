@@ -13,7 +13,8 @@ import { useZTheme } from "../../stores/useZTheme";
 import { ModalDeleteMsp } from "./ModalDeleteMsp";
 import { ModalDeleteVMsFromMSP } from "./ModalDeleteVMsFromMSP";
 import { ModalUSerNotCreated } from "./ModalUSerNotCreated";
-import { MspForm } from "./MspForms/MspForm";
+import { Step01 } from "./MspForms/Step01";
+import { Step02 } from "./MspForms/Step02";
 import { MspModal } from "./MspModal";
 import { MspTable } from "./MspTable/MspTable";
 import { MspTableFilters } from "./MspTable/MspTableFilter";
@@ -70,8 +71,7 @@ export const MSPRegisterPage = () => {
   return (
     <ScreenFullPage
       title={
-        createEditComponentOpen ? (
-          <TextRob20Font1MB
+        <TextRob20Font1MB
           sx={{
             color: theme[mode].primary,
             fontSize: "28px",
@@ -81,7 +81,6 @@ export const MSPRegisterPage = () => {
         >
           {t("mspRegister.title")}
         </TextRob20Font1MB>
-        ) : (null)
       }
       sxTitleSubTitle={{
         paddingLeft: "40px",
@@ -93,8 +92,7 @@ export const MSPRegisterPage = () => {
         paddingBottom: "40px",
       }}
       subtitle={
-        createEditComponentOpen ? (
-          <Box
+        <Box
           sx={{
             maxWidth: "646px",
             "@media (max-width: 660px)": { maxWidth: "136px" },
@@ -108,7 +106,6 @@ export const MSPRegisterPage = () => {
             ]}
           />
         </Box>
-        ) : (null)
       }
       //  sx= estilização do componente pai
       // children= elementos do componente
@@ -129,48 +126,55 @@ export const MSPRegisterPage = () => {
           boxSizing: "border-box",
         }}
       >
-        {
+        <Stack
+          sx={{
+            background: theme[mode].mainBackground,
+            borderRadius: "16px",
+            width: "100%",
+            padding: "24px",
+            boxSizing: "border-box",
+          }}
+        >
+          {activeStep === 0 ? <Step01 /> : <Step02 />}
+        </Stack>
+        <Stack
+          sx={{
+            background: theme[mode].mainBackground,
+            borderRadius: "16px",
+            width: "100%",
+            padding: "24px",
+            boxSizing: "border-box",
+          }}
+        >
           <Stack
             sx={{
-              background: theme[mode].mainBackground,
-              borderRadius: "16px",
-              width: "100%",
-              padding: "24px",
-              boxSizing: "border-box",
+              gap: "40px",
             }}
           >
-            {createEditComponentOpen ? (<MspForm />) : (
-              <Stack
+            <Box
               sx={{
-                gap: "40px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                flexWrap: "wrap",
+                gap: "24px",
               }}
             >
-              <Box
+              <TextRob16Font1S
                 sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  flexWrap: "wrap",
-                  gap: "24px",
+                  color: theme[mode].black,
+                  fontSize: "16px",
+                  fontWeight: 500,
+                  lineHeight: "24px",
                 }}
               >
-                <TextRob16Font1S
-                  sx={{
-                    color: theme[mode].black,
-                    fontSize: "16px",
-                    fontWeight: 500,
-                    lineHeight: "24px",
-                  }}
-                >
-                  {t("mspRegister.tableTitle")}
-                </TextRob16Font1S>
-                <MspTableFilters />
-              </Box>
-              <MspTable />
-            </Stack>
-            )}
+                {t("mspRegister.tableTitle")}
+              </TextRob16Font1S>
+              <MspTableFilters />
+            </Box>
+            <MspTable />
           </Stack>
-        }
+        </Stack>
       </Stack>
       {modalOpen !== null && (
         <Modal
