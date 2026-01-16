@@ -1,29 +1,33 @@
 import { Box, Modal, Stack } from "@mui/material";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { AbsoluteBackDrop } from "../../components/AbsoluteBackDrop";
+import { SampleStepper } from "../../components/SampleStepper";
 import { ScreenFullPage } from "../../components/ScreenFullPage";
 import { TextRob20Font1MB } from "../../components/Text1MB";
-import { useZTheme } from "../../stores/useZTheme";
-import { SampleStepper } from "../../components/SampleStepper";
-import { useZMspRegisterPage } from "../../stores/useZMspRegisterPage";
-import { useTranslation } from "react-i18next";
 import { TextRob16Font1S } from "../../components/Text1S";
-import { MspTableFilters } from "./MspTable/MspTableFilter";
-import { MspTable } from "./MspTable/MspTable";
-import { MspModal } from "./MspModal";
-import { ModalDeleteMsp } from "./ModalDeleteMsp";
-import { useEffect, useState } from "react";
-import { ModalUSerNotCreated } from "./ModalUSerNotCreated";
-import { ModalDeleteVMsFromMSP } from "./ModalDeleteVMsFromMSP";
 import { useBrandMasterResources } from "../../hooks/useBrandMasterResources";
-import { AbsoluteBackDrop } from "../../components/AbsoluteBackDrop";
 import { useVmResource } from "../../hooks/useVmResource";
+import { useZMspRegisterPage } from "../../stores/useZMspRegisterPage";
+import { useZTheme } from "../../stores/useZTheme";
+import { ModalDeleteMsp } from "./ModalDeleteMsp";
+import { ModalDeleteVMsFromMSP } from "./ModalDeleteVMsFromMSP";
+import { ModalUSerNotCreated } from "./ModalUSerNotCreated";
+import { Step01 } from "./MspForms/Step01";
+import { Step02 } from "./MspForms/Step02";
+import { MspModal } from "./MspModal";
+import { MspTable } from "./MspTable/MspTable";
+import { MspTableFilters } from "./MspTable/MspTableFilter";
 
 export const MSPRegisterPage = () => {
   const { theme, mode } = useZTheme();
   const {
     activeStep,
     modalOpen,
+    createEditComponentOpen,
     mspToBeDeleted,
     setModalOpen,
+    setCreateEditComponentOpen,
     setMspToBeDeleted,
     setActiveStep,
     resetAll,
@@ -122,46 +126,55 @@ export const MSPRegisterPage = () => {
           boxSizing: "border-box",
         }}
       >
-        {
+        <Stack
+          sx={{
+            background: theme[mode].mainBackground,
+            borderRadius: "16px",
+            width: "100%",
+            padding: "24px",
+            boxSizing: "border-box",
+          }}
+        >
+          {activeStep === 0 ? <Step01 /> : <Step02 />}
+        </Stack>
+        <Stack
+          sx={{
+            background: theme[mode].mainBackground,
+            borderRadius: "16px",
+            width: "100%",
+            padding: "24px",
+            boxSizing: "border-box",
+          }}
+        >
           <Stack
             sx={{
-              background: theme[mode].mainBackground,
-              borderRadius: "16px",
-              width: "100%",
-              padding: "24px",
-              boxSizing: "border-box",
+              gap: "40px",
             }}
           >
-            <Stack
+            <Box
               sx={{
-                gap: "40px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                flexWrap: "wrap",
+                gap: "24px",
               }}
             >
-              <Box
+              <TextRob16Font1S
                 sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  flexWrap: "wrap",
-                  gap: "24px",
+                  color: theme[mode].black,
+                  fontSize: "16px",
+                  fontWeight: 500,
+                  lineHeight: "24px",
                 }}
               >
-                <TextRob16Font1S
-                  sx={{
-                    color: theme[mode].black,
-                    fontSize: "16px",
-                    fontWeight: 500,
-                    lineHeight: "24px",
-                  }}
-                >
-                  {t("mspRegister.tableTitle")}
-                </TextRob16Font1S>
-                <MspTableFilters />
-              </Box>
-              <MspTable />
-            </Stack>
+                {t("mspRegister.tableTitle")}
+              </TextRob16Font1S>
+              <MspTableFilters />
+            </Box>
+            <MspTable />
           </Stack>
-        }
+        </Stack>
       </Stack>
       {modalOpen !== null && (
         <Modal

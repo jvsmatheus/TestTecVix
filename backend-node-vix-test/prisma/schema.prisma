@@ -47,6 +47,9 @@ model brandMaster {
   manual        String?
   termsOfUse    String?
   privacyPolicy String?
+  minConsumption Int?
+  discountRate   Int?
+  retailPercentageDefault Int?
   vM            vM[]
   users         user[]
 }

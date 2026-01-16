@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { useAuth } from "./useAuth";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { api } from "../services/api";
-import { IListAll } from "../types/ListAllTypes";
-import { useZUserProfile } from "../stores/useZUserProfile";
-import { useTranslation } from "react-i18next";
 import { useZBrandInfo } from "../stores/useZBrandStore";
-import { useUploadFile } from "./useUploadFile";
+import { useZUserProfile } from "../stores/useZUserProfile";
 import { IBrandMasterBasicInfo } from "../types/BrandMasterTypes";
+import { IListAll } from "../types/ListAllTypes";
+import { useAuth } from "./useAuth";
+import { useUploadFile } from "./useUploadFile";
 
 
 interface IUpdateBrandMaster {
@@ -86,7 +86,7 @@ interface ICreateNewBrandMaster {
   admPhone: string;
   admPassword: string;
   brandLogo: string;
-  position: "admin";
+  position: string;
   mspDomain: string;
   cityCode?: number;
   district?: string;
@@ -270,7 +270,6 @@ export const useBrandMasterResources = () => {
       auth,
       data: {
         brandName: data.companyName,
-        idBrandTheme: 1,
         isActive: true,
         brandLogo: data.brandLogo,
         domain: undefined,

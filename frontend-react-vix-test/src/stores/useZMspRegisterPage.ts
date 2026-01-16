@@ -27,6 +27,7 @@ interface IMspRegisterPage {
   mspList: INewMSPResponse[];
   isEditing: number[];
   modalOpen: null | "editedMsp" | "createdMsp" | "deletedMsp";
+  createEditComponentOpen: boolean;
   mspToBeDeleted?: INewMSPResponse | null;
   mspTableFilter: string;
   brandLogoUrl: string;
@@ -73,6 +74,7 @@ const INIT_STATE: IMspRegisterPage = {
   mspList: [],
   isEditing: [],
   modalOpen: null,
+  createEditComponentOpen: false,
   mspToBeDeleted: null,
   mspTableFilter: "",
   brandLogoUrl: "",
@@ -132,6 +134,7 @@ interface IMspRegisterPageState extends IMspRegisterPage {
   setModalOpen: (
     modalOpen: null | "editedMsp" | "createdMsp" | "deletedMsp",
   ) => void;
+  setCreateEditComponentOpen: (createEditComponentOpen: boolean) => void;
   setMspToBeDeleted: (mspToBeDeleted: INewMSPResponse | null) => void;
   setMspTableFilter: (mspTableFilter: string) => void;
   setBrandLogo: ({
@@ -201,6 +204,8 @@ export const useZMspRegisterPage = create<IMspRegisterPageState>((set) => ({
     set((state) => ({ ...state, isEditing: [...isEditing] })),
   setModalOpen: (modalOpen: null | "editedMsp" | "createdMsp" | "deletedMsp") =>
     set((state) => ({ ...state, modalOpen })),
+  setCreateEditComponentOpen: (createEditComponentOpen: boolean) =>
+    set((state) => ({ ...state, createEditComponentOpen })),
   setMspToBeDeleted: (mspToBeDeleted: INewMSPResponse | null) =>
     set((state) => ({ ...state, mspToBeDeleted })),
   setMspTableFilter: (mspTableFilter: string) =>

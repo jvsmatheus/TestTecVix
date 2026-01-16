@@ -1,7 +1,7 @@
+import { useState } from "react";
 import { toast } from "react-toastify";
 import { api } from "../services/api";
 import { useAuth } from "./useAuth";
-import { useState } from "react";
 
 export const useUploadFile = () => {
   const [isUploading, setIsUploading] = useState(false);
@@ -15,7 +15,7 @@ export const useUploadFile = () => {
 
     setIsUploading(true);
     const response = await api.post<{ objectName: string; url: string }>({
-      url: "/upload/file",
+      url: "/uploads/file",
       data: formData,
       timeout: 120000,
       auth: { ...auth, "Content-Type": "multipart/form-data" },
@@ -49,7 +49,7 @@ export const useUploadFile = () => {
     setIsLoading(true);
     const url = objectName[0] === "/" ? objectName.slice(1) : objectName;
     const response = await api.get<{ url: string }>({
-      url: `/upload/file/${url}`,
+      url: `/uploads/file/${url}`,
       auth: {},
     });
     setIsLoading(false);

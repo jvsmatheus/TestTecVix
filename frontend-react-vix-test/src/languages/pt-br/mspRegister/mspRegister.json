@@ -67,5 +67,12 @@
   "vmsFromThisMSP": "VMS deste MSP",
   "mspDeleted": "MSP {{ brandName }} deletado com sucesso!",
   "doYouWantToDeleteThisVMs": "Deseja realmente deletar estas VMs?",
-  "deletedVMs": "VMs deletadas com sucesso!"
+  "deletedVMs": "VMs deletadas com sucesso!",
+  "continue": "Continuar",
+  "username": "Nome de usuário",
+  "alterBrandLog": "Alterar logo",
+  "removeBrandLogo": "Remover logo",
+  "imageDefault": "Padrão: 165x50px",
+  "imageSize": "Tamanho: 50mb",
+  "imageFormats": "Formatos: .svg .png .jpg .gif .we"
 }

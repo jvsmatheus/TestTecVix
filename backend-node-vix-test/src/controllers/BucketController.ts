@@ -1,8 +1,8 @@
 import { Response } from "express";
-import { CustomRequest } from "../types/custom";
-import { STATUS_CODE } from "../constants/statusCode";
-import { IBucketService } from "../types/Interfaces/IBucketService";
 import path from "path";
+import { STATUS_CODE } from "../constants/statusCode";
+import { CustomRequest } from "../types/custom";
+import { IBucketService } from "../types/Interfaces/IBucketService";
 
 export class BucketController {
   constructor(private bucketService: IBucketService) {}

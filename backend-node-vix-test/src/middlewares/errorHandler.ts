@@ -1,7 +1,7 @@
-import { NextFunction, Request, Response } from "express";
-import { AppError } from "../errors/AppError";
-import { ZodError } from "zod";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { NextFunction, Request, Response } from "express";
+import { ZodError } from "zod";
+import { AppError } from "../errors/AppError";
 
 export const errorHandler = (
   err:
