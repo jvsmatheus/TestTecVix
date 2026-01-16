@@ -1,9 +1,9 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
+import { api } from "../services/api";
 import { TRole, useZUserProfile } from "../stores/useZUserProfile";
 import { useAuth } from "./useAuth";
-import { api } from "../services/api";
-import { toast } from "react-toastify";
-import { useTranslation } from "react-i18next";
 
 export interface IUserDB {
   idUser: number;
@@ -21,7 +21,7 @@ export interface IUserDB {
   fullName?: string;
 }
 
-interface ICreateNewUser {
+export interface ICreateNewUser {
   username: string;
   email: string;
   role: TRole;
@@ -66,7 +66,10 @@ export const useUserResources = () => {
   };
 
   const createUserByManager = async (data: ICreateNewUser) => {
-    if (role !== "admin" && role !== "manager") return null;
+    if (role !== "admin" && role !== "manager") {
+      toast.error(t("generic.errorOlnlyAdmin"));
+      return null;
+    };
     const idBrandMaster = idBrand;
     if (!idBrandMaster) {
       toast.error(t("generic.errorToSaveData"));
@@ -76,7 +79,7 @@ export const useUserResources = () => {
     const auth = await getAuth();
     setIsLoading(true);
     const response = await api.post({
-      url: `/user/new-user`,
+      url: `/user`,
       auth,
       data: {
         ...data,
@@ -92,5 +95,26 @@ export const useUserResources = () => {
     return response.data;
   };
 
-  return { isLoading, updateUser, createUserByManager };
+  const deleteUserByManager = async (idUser: number) => {
+    if (role !== "admin") {
+      toast.error(t("generic.errorOlnlyAdmin"));
+      return null;
+    };
+
+    const auth = await getAuth();
+    setIsLoading(true);
+    const response = await api.delete({
+      url: `/user/${idUser}`,
+      auth,
+    });
+    setIsLoading(false);
+    if (response.error) {
+      toast.error(response.message);
+      return null;
+    }
+
+    return response.data;
+  };
+
+  return { isLoading, updateUser, createUserByManager, deleteUserByManager };
 };
