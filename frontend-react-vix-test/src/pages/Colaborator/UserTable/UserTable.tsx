@@ -67,7 +67,6 @@ export const UserTable = () => {
   };
 
   const handleEdit = (index: number) => {
-    console.log(index);
     setIsEditing([index]);
     const user = userList.find((c) => c.idUser === index);
     setColaboratorName(user?.fullName || "");
