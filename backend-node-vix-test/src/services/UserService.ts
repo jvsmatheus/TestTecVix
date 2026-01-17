@@ -17,6 +17,14 @@ export class UserService {
 
   private userModel = new UserModel();
 
+  async getAllUsers() {
+    const users = await this.userModel.getAllUsers();
+    return {
+      totalCount: users.length,
+      result: users,
+    };
+  }
+
   async getUserById(idUser: string) {
     return this.userModel.getUserById(idUser);
   }

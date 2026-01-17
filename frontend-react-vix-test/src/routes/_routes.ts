@@ -1,3 +1,4 @@
+import { ColaboratorRouter } from "./ColaboratorRouter";
 import { DefaultRouter } from "./DefaultRouter";
 import { HomeRouter } from "./HomeRoute";
 import { LoginRouter } from "./LoginRouter";
@@ -16,4 +17,5 @@ export const mainRoutes = [
   MyVMsRouter,
   MSPRegisterRouter,
   WhiteLabelRouter,
+  ColaboratorRouter
 ];

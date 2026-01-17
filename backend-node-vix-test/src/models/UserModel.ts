@@ -9,6 +9,10 @@ export class UserModel {
     });
   }
 
+  async getAllUsers() {
+    return await prisma.user.findMany();
+  }
+
   async getUserByEmail(email: string) {
     return await prisma.user.findFirst({
       where: { email },

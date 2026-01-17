@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { api } from "../services/api";
 import { useZBrandInfo } from "../stores/useZBrandStore";
+import { useZMspRegisterPage } from "../stores/useZMspRegisterPage";
 import { useZUserProfile } from "../stores/useZUserProfile";
 import { IBrandMasterBasicInfo } from "../types/BrandMasterTypes";
 import { IListAll } from "../types/ListAllTypes";
@@ -144,6 +145,7 @@ export const useBrandMasterResources = () => {
     idBrand: idBrandInfo,
     domain,
   } = useZBrandInfo();
+  const { setMspList } = useZMspRegisterPage();
   const { getFileByObjectName } = useUploadFile();
 
   const updateBrandMaster = async ({
@@ -319,6 +321,8 @@ export const useBrandMasterResources = () => {
         result: [],
       };
     }
+
+    setMspList(response.data.result);
     return response.data;
   };
 

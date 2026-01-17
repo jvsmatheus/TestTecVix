@@ -16,8 +16,12 @@ export const makeUserController = () => {
 const userController = makeUserController();
 
 // ========= GETs =========
-userRoutes.get(`${BASE_PATH}/:idUser`, authUser, async (req, res) => {
+userRoutes.get(`${BASE_PATH}/:idUser`, async (req, res) => {
   await userController.getUserById(req, res);
+});
+
+userRoutes.get(`${BASE_PATH}`, authUser, async (req, res) => {
+  await userController.getAllUsers(req, res);
 });
 
 // ========= POSTs =========
