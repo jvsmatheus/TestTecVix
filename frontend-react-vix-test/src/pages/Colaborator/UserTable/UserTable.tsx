@@ -279,15 +279,19 @@ export const UserTable = () => {
                 >
                   <PencilCicleIcon fill={theme[mode].blueMedium} />
                 </IconButton>
-                {role === "admin" && user.idUser !== idUser && (
-                  <IconButton
-                    onClick={() => {
-                      handleDelete(user.idUser);
-                    }}
-                  >
-                    <DeleteForeverIcon sx={{ color: theme[mode].danger }} />
-                  </IconButton>
-                )}
+                <IconButton
+                  onClick={() => {
+                    handleDelete(user.idUser);
+                  }}
+                  sx={{
+                    visibility:
+                      role === "admin" && user.idUser !== idUser
+                        ? "visible"
+                        : "hidden",
+                  }}
+                >
+                  <DeleteForeverIcon sx={{ color: theme[mode].danger }} />
+                </IconButton>
               </Box>
             </Box>
             {index !== userList.length - 1 && (
