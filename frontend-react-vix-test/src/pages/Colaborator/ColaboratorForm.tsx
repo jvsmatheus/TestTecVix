@@ -110,8 +110,6 @@ export const ColaboratorForm = () => {
       idBrandMaster: selectedMSP.idBrandMaster ?? null,
     };
 
-    console.log(user);
-
     if (!isEditing || isEditing.length === 0) {
       const response = await createUserByManager(user);
       if (response) {

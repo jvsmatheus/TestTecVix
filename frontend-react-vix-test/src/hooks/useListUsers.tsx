@@ -23,8 +23,6 @@ export const useListUsers = () => {
       },
     });
 
-    console.log(response)
-
     setIsLoading(false);
 
     if (response.error) {
