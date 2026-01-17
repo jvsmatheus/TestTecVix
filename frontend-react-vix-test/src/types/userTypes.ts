@@ -1,6 +1,6 @@
 export interface IUserResponse {
   idUser: number;
-  idBrandMaster: 1;
+  idBrandMaster: number;
   createdAt: string | Date;
   deletedAt: string | Date | null;
   email: string | null;
@@ -11,6 +11,13 @@ export interface IUserResponse {
   socketId: null | string;
   updatedAt: string | Date;
   username: string;
+  password: string;
+  fullName: string;
+  userPhoneNumber: string;
+  field: string;
+  department: string;
+  contractDate: string;
+  status: string;
 }
 
 export interface IPincodeInfos {
@@ -26,4 +33,16 @@ export interface IUserBasicInfo {
   username?: string | null;
   idUser?: number | null;
   idBrandMaster?: number | null;
+}
+
+export interface IUserAuth {
+  tokem: string;
+  user: {
+    idUser: number;
+    email: string;
+    username: string;
+    role: "admin" | "manager" | "member";
+    idBrandMaster: number;
+  }
+
 }

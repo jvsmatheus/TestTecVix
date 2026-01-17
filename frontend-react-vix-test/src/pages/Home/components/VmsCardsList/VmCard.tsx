@@ -1,31 +1,31 @@
 import { Box, Button, Divider, IconButton, Stack } from "@mui/material";
-import { useZTheme } from "../../../../stores/useZTheme";
 import { useTranslation } from "react-i18next";
+import { useZTheme } from "../../../../stores/useZTheme";
 
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import { useEffect, useState } from "react";
-import { shadow } from "../../../../utils/shadow";
-import { makeEllipsis } from "../../../../utils/makeEllipsis";
-import { TextRob20Font1MC } from "../../../../components/Text1MC";
-import { PencilIcon } from "../../../../icons/PencilIcon";
-import { TagStatus } from "./TagStatus";
 import { Btn } from "../../../../components/Buttons/Btn";
-import { TextRob12Font2Xs } from "../../../../components/Text2Xs";
-import { checkStatus } from "../../../../utils/checkStatus";
-import { TextRob16FontL } from "../../../../components/TextL";
 import { ModalChangeValueInput } from "../../../../components/Modal/ModalChangeValueInput";
-import { useSelfPosition } from "../../../../hooks/useSelfPosition";
 import { ModalSlider } from "../../../../components/Modal/ModalSlider";
-import { ModalWarningDisk } from "./ModalWarningDisk";
-import { useVmResource } from "../../../../hooks/useVmResource";
-import { VmCardSkeleton } from "./VmCardSkeleton";
-import { useZGlobalVar } from "../../../../stores/useZGlobalVar";
-import { ChartBarIcon } from "../../../../icons/ChartIcon";
+import { TextRob20Font1MC } from "../../../../components/Text1MC";
 import { TextRob14Font1Xs } from "../../../../components/Text1Xs";
-import { TerminalIcon } from "../../../../icons/TerminalIcon";
+import { TextRob12Font2Xs } from "../../../../components/Text2Xs";
+import { TextRob16FontL } from "../../../../components/TextL";
+import { useSelfPosition } from "../../../../hooks/useSelfPosition";
+import { useVmResource } from "../../../../hooks/useVmResource";
+import { ChartBarIcon } from "../../../../icons/ChartIcon";
 import { MonitorIcon } from "../../../../icons/MonitorIcon";
+import { PencilIcon } from "../../../../icons/PencilIcon";
+import { TerminalIcon } from "../../../../icons/TerminalIcon";
+import { useZGlobalVar } from "../../../../stores/useZGlobalVar";
 import { IVMTask, taskMock } from "../../../../types/VMTypes";
+import { checkStatus } from "../../../../utils/checkStatus";
+import { makeEllipsis } from "../../../../utils/makeEllipsis";
+import { shadow } from "../../../../utils/shadow";
+import { ModalWarningDisk } from "./ModalWarningDisk";
+import { TagStatus } from "./TagStatus";
+import { VmCardSkeleton } from "./VmCardSkeleton";
 
 export interface IVmCardProps {
   vmId: number;
@@ -77,6 +77,7 @@ export const VmCard = ({
   const {
     updateNameVm,
     updateDiskSizeVm,
+    updateVMStatus,
     getVMById: getVMByIdResource,
     isLoading,
     getOS,
@@ -109,7 +110,7 @@ export const VmCard = ({
   const handleConfirm = async () => {
     if (statusState !== preStatusState) {
       setPreStatusState(statusState);
-
+      await updateVMStatus({ idVM: vmId, status: statusState as "RUNNING" | "STOPPED" | "PAUSED" });
       await getVMById();
     }
     setShowConfirmation(false);

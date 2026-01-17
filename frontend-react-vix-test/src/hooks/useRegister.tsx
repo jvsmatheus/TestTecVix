@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { api } from "../services/api";
 import { useZBrandInfo } from "../stores/useZBrandStore";
-import { useNavigate } from "react-router-dom";
 
 export const useRegister = () => {
   const { t } = useTranslation();
@@ -47,7 +47,7 @@ export const useRegister = () => {
     }
 
     const response = await api.post({
-      url: "/user",
+      url: "/auth/register",
       data: {
         username,
         password,
@@ -60,6 +60,8 @@ export const useRegister = () => {
       toast.error(response.message);
       return;
     }
+
+    toast.success(t("loginRegister.registerSuccess"));
     return navigate("/login");
   };
 

@@ -7,11 +7,11 @@ export const userCreatedSchema = z.object({
   profileImgUrl: z.string().nullable().optional(),
   userPhoneNumber: z.string().nullable().optional(),
   role: z.enum(["admin", "member", "manager"]).optional(),
-  idBrandMaster: z.number().optional(),
-  isActive: z.boolean().optional().default(false),
+  idBrandMaster: z.number().nullable().optional(),
+  isActive: z.boolean().optional().default(true),
   field: z.string().nullable().optional(),
   department: z.string().nullable().optional(),
-  contractDate: z.string().nullable().optional(),
+  contractDate: z.coerce.date().nullable().optional(),
   fullName: z.string().nullable().optional(),
 });
 

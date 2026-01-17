@@ -47,6 +47,9 @@ model brandMaster {
   manual        String?
   termsOfUse    String?
   privacyPolicy String?
+  minConsumption Int?
+  discountRate   Int?
+  retailPercentageDefault Int?
   vM            vM[]
   users         user[]
 }
@@ -59,6 +62,8 @@ model vM {
   disk          Int
   hasBackup     Boolean?     @default(false)
   idBrandMaster Int?
+  pass          String?
+  location      ETaskLocation?
   status        EVMStatus?
   createdAt     DateTime?    @default(now()) @db.DateTime(0)
   updatedAt     DateTime?    @default(now()) @db.DateTime(0)
@@ -75,9 +80,14 @@ model user {
   password      String
   email         String
   profileImgUrl String?
+  userPhoneNumber String?
   role          ERole     @default(member)
   idBrandMaster Int?
   isActive      Boolean?  @default(true)
+  field         String?
+  department    String?
+  fullName      String?
+  contractDate  DateTime? @db.DateTime(0)
   lastLoginDate DateTime? @db.DateTime(0)
   createdAt     DateTime? @default(now()) @db.DateTime(0)
   updatedAt     DateTime? @default(now()) @db.DateTime(0)
@@ -98,4 +108,9 @@ enum ERole {
   admin
   manager
   member
+}
+
+enum ETaskLocation {
+  bre_barueri
+  usa_miami
 }

@@ -33,6 +33,9 @@ Table brandMaster {
   manual String
   termsOfUse String
   privacyPolicy String
+  minConsumption Int
+  discountRate Int
+  retailPercentageDefault Int
   vM vM [not null]
   users user [not null]
 }
@@ -45,6 +48,8 @@ Table vM {
   disk Int [not null]
   hasBackup Boolean [default: false]
   idBrandMaster Int
+  pass String
+  location ETaskLocation
   status EVMStatus
   createdAt DateTime [default: `now()`]
   updatedAt DateTime [default: `now()`]
@@ -59,9 +64,14 @@ Table user {
   password String [not null]
   email String [not null]
   profileImgUrl String
+  userPhoneNumber String
   role ERole [not null, default: 'member']
   idBrandMaster Int
   isActive Boolean [default: true]
+  field String
+  department String
+  fullName String
+  contractDate DateTime
   lastLoginDate DateTime
   createdAt DateTime [default: `now()`]
   updatedAt DateTime [default: `now()`]
@@ -79,6 +89,11 @@ Enum ERole {
   admin
   manager
   member
+}
+
+Enum ETaskLocation {
+  bre_barueri
+  usa_miami
 }
 
 Ref: vM.idBrandMaster > brandMaster.idBrandMaster

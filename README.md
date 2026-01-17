@@ -80,8 +80,8 @@ Você pode criar, instalar e utilizar outras bibliotecas, porém o **foco princi
 > **📢 IMPORTANTE**: Seu repositório fork **DEVE SER PÚBLICO** para que a equipe da Vituax possa avaliar seu trabalho.
 
 Certifique-se de que:
-- [ ] Seu repositório está configurado como **público** (não privado)
-- [ ] A equipe da Vituax consegue acessar o link sem necessidade de permissões especiais
+- [x] Seu repositório está configurado como **público** (não privado)
+- [x] A equipe da Vituax consegue acessar o link sem necessidade de permissões especiais
 
 ### 📤 Entrega do Teste
 
@@ -98,11 +98,11 @@ Ao finalizar o teste, você deve:
 
 Antes de enviar, certifique-se de que:
 
-- [ ] O código está no **seu repositório pessoal** do GitHub
-- [ ] O repositório está configurado como **público** (não privado)
-- [ ] A branch `main` contém o projeto original
-- [ ] A branch `release` contém todas as suas modificações
-- [ ] Existe um Pull Request da `release` para a `main` **no seu repositório**
+- [x] O código está no **seu repositório pessoal** do GitHub
+- [x] O repositório está configurado como **público** (não privado)
+- [x] A branch `main` contém o projeto original
+- [x] A branch `release` contém todas as suas modificações
+- [x] Existe um Pull Request da `release` para a `main` **no seu repositório**
 - [ ] O README está atualizado com suas modificações
 - [ ] O projeto está funcionando corretamente
 - [ ] As credenciais de teste estão documentadas
@@ -389,16 +389,16 @@ Exemplo:
 
 ```
 Admin:
-  Email: admin@vituax.com
-  Senha: Admin@123
+  Email: admin_user@email.com
+  Senha: SenhaMuitoForte@123
 
 Manager:
-  Email: manager@vituax.com
-  Senha: Manager@123
+  Email: manager_user@email.com
+  Senha: SenhaMuitoForte@123
 
 Member:
-  Email: member@vituax.com
-  Senha: Member@123
+  Email: member_user@email.com
+  Senha: SenhaMuitoForte@123
 ```
 
 ---
@@ -687,3 +687,28 @@ Se tiver dúvidas sobre o teste, entre em contato com o time da Vituax.
 
 **Esperamos receber o link do seu repositório em breve!** 📬
 
+---
+
+## Alterações e Implementações Realizadas
+
+- Implementação das rotas de login, registro, logout e refresh token, utilizando autenticação baseada em JWT.
+
+   - A autenticação foi separada da entidade de usuário, mantendo a responsabilidade de autenticação desacoplada do domínio de usuários.
+
+- Implementação completa do CRUD de usuários.
+
+- Proteção de rotas por meio de middleware de autenticação, com:
+
+   - Validação do token JWT.
+
+   - Controle de acesso baseado em níveis de permissão (roles).
+
+- Função de start e pause nos cards de VM da página home.
+
+- Dropdown de sistemas operacionais na página de criação de VM utilizando enum de OS.
+
+- Filtro de msp, ações de start e pause pela tabela na listagem de VMs.
+
+- Implementação dos componentes de cadastro de msp em duas etapas.
+
+- Tela de cadastro de funcionários + listagem

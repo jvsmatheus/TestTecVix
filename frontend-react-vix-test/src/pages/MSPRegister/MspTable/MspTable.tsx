@@ -1,17 +1,17 @@
-import { Fragment, useEffect } from "react";
-import { useZTheme } from "../../../stores/useZTheme";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { Box, IconButton, Stack } from "@mui/material";
+import moment from "moment";
+import { Fragment, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { ImgFromDB } from "../../../components/ImgFromDB";
 import { TextRob14Font1Xs } from "../../../components/Text1Xs";
 import { TextRob12Font2Xs } from "../../../components/Text2Xs";
-import { useTranslation } from "react-i18next";
-import { PencilCicleIcon } from "../../../icons/PencilCicleIcon";
-import CheckCircleOutlineRoundedIcon from "@mui/icons-material/CheckCircleOutlineRounded";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { useZUserProfile } from "../../../stores/useZUserProfile";
-import { useZMspRegisterPage } from "../../../stores/useZMspRegisterPage";
 import { useBrandMasterResources } from "../../../hooks/useBrandMasterResources";
-import moment from "moment";
+import { PencilCicleIcon } from "../../../icons/PencilCicleIcon";
+import { useZBrandInfo } from "../../../stores/useZBrandStore";
+import { useZMspRegisterPage } from "../../../stores/useZMspRegisterPage";
+import { useZTheme } from "../../../stores/useZTheme";
+import { useZUserProfile } from "../../../stores/useZUserProfile";
 
 export const MspTable = () => {
   const { theme, mode } = useZTheme();
@@ -49,11 +49,13 @@ export const MspTable = () => {
     setMinConsumption,
     setRetailPercentageDefault,
     setHasSelfRegister,
+    setCreateEditComponentOpen,
   } = useZMspRegisterPage();
 
   const { listAllBrands } = useBrandMasterResources();
 
-  const { role } = useZUserProfile();
+  const { role, setUser } = useZUserProfile();
+  const { setBrandInfo } = useZBrandInfo();
 
   useEffect(() => {
     const fetchMsps = async () => {
@@ -65,8 +67,9 @@ export const MspTable = () => {
   }, []);
 
   const startEditing = (index: number) => {
-    setShowAddressFields(true);
     setIsEditing([index]);
+    setUser({idBrand: index});
+    setCreateEditComponentOpen(true);
   };
 
   const saveEdit = () => {
@@ -78,6 +81,7 @@ export const MspTable = () => {
   const handleEdit = (index: number) => {
     setEnterOnEditing(true);
     startEditing(index);
+    setBrandInfo({idBrand: index})
     setActiveStep(0);
     const msp = mspList.find((c) => c.idBrandMaster === index);
     setCompanyName(msp?.brandName || "");
@@ -302,23 +306,13 @@ export const MspTable = () => {
                 }}
               >
                 <IconButton
-                  onClick={() =>
-                    isEditing.includes(msp.idBrandMaster)
+                  onClick={() => {
+                    return isEditing.includes(msp.idBrandMaster)
                       ? saveEdit()
                       : handleEdit(msp.idBrandMaster)
-                  }
+                  }}
                 >
-                  {isEditing.includes(msp.idBrandMaster) ? (
-                    <CheckCircleOutlineRoundedIcon
-                      sx={{
-                        color: theme[mode].blueMedium,
-                        width: "24px",
-                        height: "24px",
-                      }}
-                    />
-                  ) : (
-                    <PencilCicleIcon fill={theme[mode].blueMedium} />
-                  )}
+                  <PencilCicleIcon fill={theme[mode].blueMedium} />
                 </IconButton>
                 {role === "admin" && (
                   <IconButton

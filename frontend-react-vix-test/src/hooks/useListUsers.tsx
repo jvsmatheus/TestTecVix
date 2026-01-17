@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { useAuth } from "./useAuth";
 import { api } from "../services/api";
+import { useZUserList } from "../stores/useZUserList";
 import { IListAll } from "../types/ListAllTypes";
 import { IUserResponse } from "../types/userTypes";
+import { useAuth } from "./useAuth";
 
 export const useListUsers = () => {
-  const [userList, setUserList] = useState<IUserResponse[]>([]);
-  const [userTotalCount, setUserTotalCount] = useState(0);
+  const {userList, setUserList, userTotalCount, setUserTotalCount} = useZUserList();
   const [isLoading, setIsLoading] = useState(false);
   const { getAuth } = useAuth();
 
@@ -14,7 +14,7 @@ export const useListUsers = () => {
     const auth = await getAuth();
     setIsLoading(true);
     const response = await api.get<IListAll<IUserResponse>>({
-      url: "/user/access",
+      url: "/user",
       auth,
       params: {
         orderBy: "lastLoginDate:desc",

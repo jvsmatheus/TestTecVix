@@ -9,20 +9,20 @@ import {
   ImgFlagOfEUA,
 } from "../../../../components/SwithLanguages";
 import { TextRob16FontL } from "../../../../components/TextL";
+import { useStatusInfo } from "../../../../hooks/useStatusInfo";
+import { useVmResource } from "../../../../hooks/useVmResource";
 import { MonitorIcon } from "../../../../icons/MonitorIcon";
 import { PencilCicleIcon } from "../../../../icons/PencilCicleIcon";
+import { PlayCircleIcon } from "../../../../icons/PlayCircleIcon";
+import { StopCircleIcon } from "../../../../icons/StopCircleIcon";
 import { TerminalIcon } from "../../../../icons/TerminalIcon";
+import { useZMyVMsList } from "../../../../stores/useZMyVMsList";
 import { useZTheme } from "../../../../stores/useZTheme";
 import { IVMCreatedResponse } from "../../../../types/VMTypes";
 import { getVMOwnership } from "../../../../utils/getVMOwnership";
 import { makeEllipsis } from "../../../../utils/makeEllipsis";
-import { useVmResource } from "../../../../hooks/useVmResource";
-import { useZMyVMsList } from "../../../../stores/useZMyVMsList";
-import { PlayCircleIcon } from "../../../../icons/PlayCircleIcon";
-import { StopCircleIcon } from "../../../../icons/StopCircleIcon";
 import { ModalStartVM } from "../ModalStartVM";
 import { ModalStopVM } from "../ModalStopVM";
-import { useStatusInfo } from "../../../../hooks/useStatusInfo";
 
 interface IProps {
   vm: IVMCreatedResponse;
@@ -36,7 +36,7 @@ export const RowVM = ({ vm, index }: IProps) => {
   const [vmIDToStart, setVmIDToStart] = React.useState<number>(0);
   const { currentVM, setCurrentVM } = useZMyVMsList();
   const { getStatus } = useStatusInfo();
-  const { getOS, getVMById, isLoading: isLoadingVm } = useVmResource();
+  const { getOS, isLoading: isLoadingVm, updateVMStatus } = useVmResource();
 
   const idVM: number = Number(row.idVM);
   const labelId = `enhanced-table-checkbox-${index}`;
@@ -49,7 +49,8 @@ export const RowVM = ({ vm, index }: IProps) => {
   };
 
   const handleConfirVMStatusChange = async () => {
-    const updatedVM = await getVMById(vmIDToStop || vmIDToStart);
+    const updatedVM = await updateVMStatus({ idVM: vmIDToStop || vmIDToStart,
+      status: vmIDToStop ? "STOPPED" : "RUNNING" });
     if (updatedVM) {
       setRow(updatedVM);
     }

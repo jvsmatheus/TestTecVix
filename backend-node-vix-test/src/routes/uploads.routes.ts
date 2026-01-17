@@ -1,6 +1,8 @@
 import { Router } from "express";
+import { authUser } from "../auth/authUser";
 import { API_VERSION, ROOT_PATH } from "../constants/basePathRoutes";
 import { BucketController } from "../controllers/BucketController";
+import { upload } from "../middlewares/multer";
 import { BucketLocalService } from "../services/BucketLocalService";
 
 const BASE_PATH = API_VERSION.V1 + ROOT_PATH.UPLOADS; // /api/v1/uploads
@@ -14,8 +16,21 @@ export const makeBucketController = () => {
 
 const uploadsController = makeBucketController();
 
-uploadsRoutes.get(`${BASE_PATH}/:objectName`, async (req, res) => {
+uploadsRoutes.get(`${BASE_PATH}/:objectName`, authUser, async (req, res) => {
   await uploadsController.getFileInBucketByObjectName(req, res);
 });
+
+uploadsRoutes.get(`${BASE_PATH}/file/:objectName`, async (req, res) => {
+  await uploadsController.getFileByObjectName(req, res);
+});
+
+uploadsRoutes.post(
+  `${BASE_PATH}/file`,
+  authUser,
+  upload.single("file"),
+  async (req, res) => {
+    await uploadsController.uploadFile(req, res);
+  },
+);
 
 export { uploadsRoutes };

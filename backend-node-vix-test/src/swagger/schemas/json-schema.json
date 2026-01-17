@@ -188,6 +188,24 @@
             "null"
           ]
         },
+        "minConsumption": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "discountRate": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "retailPercentageDefault": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
         "vM": {
           "type": "array",
           "items": {
@@ -229,6 +247,22 @@
             "null"
           ],
           "default": false
+        },
+        "pass": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "location": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "bre_barueri",
+            "usa_miami"
+          ]
         },
         "status": {
           "type": [
@@ -301,6 +335,12 @@
             "null"
           ]
         },
+        "userPhoneNumber": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
         "role": {
           "type": "string",
           "default": "member",
@@ -316,6 +356,31 @@
             "null"
           ],
           "default": true
+        },
+        "field": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "department": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fullName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "contractDate": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
         },
         "lastLoginDate": {
           "type": [
